@@ -90,7 +90,7 @@
 </style>
 </head>
 <body>
-<header><nav class="tabs" aria-label="문서 종류"><a href="index.html">보도자료</a><a href="report.html" aria-current="page">보고서</a></nav><h1>보고서 HWPX 만들기</h1><div class="sub">원본 자료를 □·○·- 단계의 보고서로 정리하고, 핵심 내용을 한눈에 보는 인포그래픽을 부록으로 붙입니다.</div></header>
+<header><nav class="tabs" aria-label="문서 종류"><a href="index.html">보도자료</a><a href="report.html" aria-current="page">보고서</a></nav><h1>보고서 HWPX 만들기</h1><div class="sub">원본 자료를 □ ○ - 단계로 구성한 보고서로 정리하고, 핵심 내용을 한눈에 보는 인포그래픽을 부록으로 붙입니다.</div></header>
 <main>
 <section class="card">
 <h2>1. 원본 자료</h2>
@@ -106,7 +106,7 @@
 <a id="articleLink" class="article-link" target="_blank" rel="noopener noreferrer" hidden>기사 원문 열기</a>
 <div id="articleStatus" role="status"></div>
 <label for="source">기사 본문 또는 자료 텍스트</label>
-<textarea id="source" rows="7" placeholder="기사 초안, 행사 개요, 연구 결과 등을 붙여넣으세요."></textarea>
+<textarea id="source" rows="7" placeholder="업무 자료, 회의 내용, 기사 본문 등을 붙여넣으세요."></textarea>
 <button id="extract" type="button">보고서 초안 만들기</button>
 <button id="sample" type="button" class="light">예시 불러오기</button>
 <button id="reset" type="button" class="light">초기화</button>
@@ -396,9 +396,9 @@ function render(){
   }
   if(!d.body) h+='<div class="r1"><b>□</b> '+placeholder('[보고 내용을 입력하세요.]')+'</div>';
   if(d.metrics) h+=heading('핵심 수치')+box(explicitMetrics(d));
+  if(d.src) h+='<div class="bnote">※ 출처 및 참고 자료 : '+esc(plain(d.src))+'</div>';
   const attach=attachItems(d);
   if(attach.length) h+='<div class="attach-list"><b>붙임</b><div>'+attach.map(esc).join('<br>')+'</div></div>';
-  if(d.src) h+='<div class="bnote">※ 출처 및 참고 자료 : '+esc(plain(d.src))+'</div>';
   if(d.title&&!needsReview(d.title)&&(g.metrics.length||g.points.length)){
     h+='<div class="pagebreak" aria-hidden="true">다음 쪽</div><div class="appx"><span class="badge">별첨 1</span><span class="appx-title">한눈에 보는 보고서</span></div>'
       +'<div class="infographic"><small>‘인포그래픽 생성’으로 보는 그림이 이 자리에 들어갑니다.</small>'
@@ -499,7 +499,7 @@ function graphicCanvas(d,g){
 $('generateGraphic').onclick=async()=>{
   const d=data(), g=infographic(d);
   if(!d.title||needsReview(d.title)||(!g.metrics.length&&!g.points.length)){
-    status('제목과 핵심 요약, 본문 또는 수치를 입력한 뒤 인포그래픽을 생성해 주세요.',true);
+    status('제목과 보고 요약, 본문 또는 수치를 입력한 뒤 인포그래픽을 생성해 주세요.',true);
     return;
   }
   clearGraphic();
@@ -655,7 +655,7 @@ function sectionXml(d,graphic){
       let cw=47600, ch=Math.round(oh*cw/ow);
       if(ch>64000){ch=64000;cw=Math.round(ow*ch/oh);}
       const sx=(cw/ow).toFixed(6), sy=(ch/oh).toFixed(6);
-      const pic='<hp:pic id="'+nextId()+'" zOrder="30" numberingType="PICTURE" textWrap="TOP_AND_BOTTOM" textFlow="BOTH_SIDES" lock="0" dropcapstyle="None" href="" groupLevel="0" instid="'+nextId()+'" reverse="0"><hp:offset x="0" y="0"/><hp:orgSz width="'+ow+'" height="'+oh+'"/><hp:curSz width="'+cw+'" height="'+ch+'"/><hp:flip horizontal="0" vertical="0"/><hp:rotationInfo angle="0" centerX="'+Math.round(cw/2)+'" centerY="'+Math.round(ch/2)+'" rotateimage="1"/><hp:renderingInfo><hc:transMatrix e1="1" e2="0" e3="0" e4="0" e5="1" e6="0"/><hc:scaMatrix e1="'+sx+'" e2="0" e3="0" e4="0" e5="'+sy+'" e6="0"/><hc:rotMatrix e1="1" e2="0" e3="0" e4="0" e5="1" e6="0"/></hp:renderingInfo><hp:imgRect><hc:pt0 x="0" y="0"/><hc:pt1 x="'+ow+'" y="0"/><hc:pt2 x="'+ow+'" y="'+oh+'"/><hc:pt3 x="0" y="'+oh+'"/></hp:imgRect><hp:imgClip left="0" right="'+ow+'" top="0" bottom="'+oh+'"/><hp:inMargin left="0" right="0" top="0" bottom="0"/><hp:imgDim dimwidth="'+ow+'" dimheight="'+oh+'"/><hc:img binaryItemIDRef="'+graphic.ref+'" bright="0" contrast="0" effect="REAL_PIC" alpha="0"/><hp:effects/><hp:sz width="'+cw+'" widthRelTo="ABSOLUTE" height="'+ch+'" heightRelTo="ABSOLUTE" protect="0"/><hp:pos treatAsChar="1" affectLSpacing="0" flowWithText="1" allowOverlap="0" holdAnchorAndSO="0" vertRelTo="PARA" horzRelTo="COLUMN" vertAlign="TOP" horzAlign="LEFT" vertOffset="0" horzOffset="0"/><hp:outMargin left="0" right="0" top="0" bottom="0"/><hp:shapeComment>보도자료 인포그래픽</hp:shapeComment></hp:pic>';
+      const pic='<hp:pic id="'+nextId()+'" zOrder="30" numberingType="PICTURE" textWrap="TOP_AND_BOTTOM" textFlow="BOTH_SIDES" lock="0" dropcapstyle="None" href="" groupLevel="0" instid="'+nextId()+'" reverse="0"><hp:offset x="0" y="0"/><hp:orgSz width="'+ow+'" height="'+oh+'"/><hp:curSz width="'+cw+'" height="'+ch+'"/><hp:flip horizontal="0" vertical="0"/><hp:rotationInfo angle="0" centerX="'+Math.round(cw/2)+'" centerY="'+Math.round(ch/2)+'" rotateimage="1"/><hp:renderingInfo><hc:transMatrix e1="1" e2="0" e3="0" e4="0" e5="1" e6="0"/><hc:scaMatrix e1="'+sx+'" e2="0" e3="0" e4="0" e5="'+sy+'" e6="0"/><hc:rotMatrix e1="1" e2="0" e3="0" e4="0" e5="1" e6="0"/></hp:renderingInfo><hp:imgRect><hc:pt0 x="0" y="0"/><hc:pt1 x="'+ow+'" y="0"/><hc:pt2 x="'+ow+'" y="'+oh+'"/><hc:pt3 x="0" y="'+oh+'"/></hp:imgRect><hp:imgClip left="0" right="'+ow+'" top="0" bottom="'+oh+'"/><hp:inMargin left="0" right="0" top="0" bottom="0"/><hp:imgDim dimwidth="'+ow+'" dimheight="'+oh+'"/><hc:img binaryItemIDRef="'+graphic.ref+'" bright="0" contrast="0" effect="REAL_PIC" alpha="0"/><hp:effects/><hp:sz width="'+cw+'" widthRelTo="ABSOLUTE" height="'+ch+'" heightRelTo="ABSOLUTE" protect="0"/><hp:pos treatAsChar="1" affectLSpacing="0" flowWithText="1" allowOverlap="0" holdAnchorAndSO="0" vertRelTo="PARA" horzRelTo="COLUMN" vertAlign="TOP" horzAlign="LEFT" vertOffset="0" horzOffset="0"/><hp:outMargin left="0" right="0" top="0" bottom="0"/><hp:shapeComment>보고서 인포그래픽</hp:shapeComment></hp:pic>';
       appendix+='<hp:p id="0" paraPrIDRef="6" styleIDRef="0" pageBreak="0" columnBreak="0" merged="0"><hp:run charPrIDRef="98">'+pic+'<hp:t/></hp:run></hp:p>';
     }else{
       appendix+=xpara(1,xrun(68,'  '+'[별첨 자료를 넣어 주세요.]'));
@@ -848,9 +848,9 @@ $('readArticle').onclick=async()=>{
     sourceStatus('');
     if(!filled(data())&&!$('files').files.length){
       setFields({...article,src:publicUrl.href});
-      status('기사 본문을 가져와 2번 보도자료와 부록을 채웠습니다. 원문과 대조해 주세요.',false,'articleStatus');
+      status('기사 본문을 가져와 2번 보고서와 부록을 채웠습니다. 원문과 대조해 주세요.',false,'articleStatus');
     }else{
-      status('기사 본문을 가져왔습니다. 내용을 확인한 뒤 ‘보도자료 초안 만들기’를 눌러 반영하세요.',false,'articleStatus');
+      status('기사 본문을 가져왔습니다. 내용을 확인한 뒤 ‘보고서 초안 만들기’를 눌러 반영하세요.',false,'articleStatus');
     }
   }catch(error){
     if(articleRequest!==controller) return;
@@ -1187,9 +1187,9 @@ $('sample').onclick=()=>{
     '보고 일자: 2026. 7. 10.',
     '보고 부서: 우리시 디지털정책과 (가상)',
     '작성자: 주무관 김하늘',
-    '요약: 상반기 디지털 실습 프로그램을 4곳에서 운영해 시민 118명이 수료',
-    '- 만족도 조사에서 응답자 92%가 도움이 됐다고 답변',
-    '하반기에는 실습 장소를 6곳으로 늘리고 심화 과정 신설',
+    '요약: 상반기 디지털 실습 프로그램을 4곳에서 운영하여 시민 118명 수료',
+    '- 만족도 조사 결과 응답자의 92%가 도움이 되었다고 답변',
+    '하반기에는 실습 장소를 6곳으로 확대하고 심화 과정을 신설할 계획',
     '핵심 수치: 수료 인원 118명',
     '만족도 92%',
     '본문:',
@@ -1198,13 +1198,13 @@ $('sample').onclick=()=>{
     '○ (기간/장소) 4월~6월 / 시내 교육 공간 4곳',
     '○ (대상) 디지털 서비스 이용이 낯선 시민 120명 모집',
     '# 운영 결과',
-    '□ 모집 인원 120명 중 118명이 과정을 수료',
+    '□ 모집 인원 120명 중 118명 수료(수료율 98%)',
     '○ 기본 기능 익히기와 실생활 과제 실습을 단계별로 진행',
     '- 무인 주문기, 모바일 민원 신청 등 6개 과제 실습',
     '* 수료 기준: 전체 회차의 80% 이상 출석',
     '# 향후 계획',
-    '□ 하반기 실습 장소를 6곳으로 늘리고 심화 과정 신설',
-    '○ 수강생 의견을 반영해 회차별 실습 시간 확대',
+    '□ 하반기 실습 장소를 6곳으로 확대하고 심화 과정 신설',
+    '○ 수강생 의견을 반영하여 회차별 실습 시간 확대',
     '붙임: 프로그램 운영 결과 세부 자료',
     '출처: 프로그램 사용법을 보여주기 위한 가상 자료'
   ].join('\n');
