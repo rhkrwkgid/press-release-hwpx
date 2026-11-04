@@ -74,6 +74,8 @@
   .original-image img{display:block;width:100%;max-height:320px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:5px}
   .article-link{display:inline-block;margin-top:5px;color:#1c5b92}
   [hidden]{display:none!important}
+  .hero{display:flex;align-items:center;justify-content:space-between;gap:24px}.hero-img{flex:0 1 420px;min-width:0;width:100%;max-width:420px;height:auto;border-radius:10px;border:1px solid var(--line)}
+  @media (max-width:700px){.hero{flex-direction:column;align-items:stretch}.hero-img{max-width:100%;flex-basis:auto}}
   .tabs{display:flex;gap:6px;margin:0 0 12px}.tabs a{padding:5px 14px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);text-decoration:none;font-size:14px}.tabs a[aria-current]{background:var(--accent);color:#fff}
   .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
   .field-grid .wide{grid-column:1/-1}
@@ -85,7 +87,7 @@
 </style>
 </head>
 <body>
-<header><nav class="tabs" aria-label="문서 종류"><a href="index.html" aria-current="page">보도자료</a><a href="report.html">보고서</a><a href="sample.html">샘플</a></nav><h1>보도자료 HWPX 만들기</h1><div class="sub">원본 자료를 보도자료로 정리하고, 핵심 내용을 한눈에 보는 인포그래픽을 부록으로 붙입니다.</div></header>
+<header><nav class="tabs" aria-label="문서 종류"><a href="index.html" aria-current="page">보도자료</a><a href="report.html">보고서</a><a href="sample.html">샘플</a></nav><div class="hero"><div><h1>보도자료 HWPX 만들기</h1><div class="sub">원본 자료를 보도자료로 정리하고, 핵심 내용을 한눈에 보는 인포그래픽을 부록으로 붙입니다.</div></div><img class="hero-img" src="images/press-hero.jpg" width="612" height="387" alt="다양한 연령과 복장의 사람들이 함께 모여 웃으며 서 있는 단체 사진"></div></header>
 <main>
 <section class="card">
 <h2>1. 원본 자료</h2>
