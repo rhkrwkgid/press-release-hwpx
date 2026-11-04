@@ -74,6 +74,7 @@
   .original-image img{display:block;width:100%;max-height:320px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:5px}
   .article-link{display:inline-block;margin-top:5px;color:#1c5b92}
   [hidden]{display:none!important}
+  .tabs{display:flex;gap:6px;margin:0 0 12px}.tabs a{padding:5px 14px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);text-decoration:none;font-size:14px}.tabs a[aria-current]{background:var(--accent);color:#fff}
   .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
   .field-grid .wide{grid-column:1/-1}
   .field-grid [data-review]{border-color:#a8481c;background:#fff7ef}
@@ -84,7 +85,7 @@
 </style>
 </head>
 <body>
-<header><h1>보도자료 HWPX 만들기</h1><div class="sub">원본 자료를 보도자료로 정리하고, 핵심 내용을 한눈에 보는 인포그래픽을 부록으로 붙입니다.</div></header>
+<header><nav class="tabs" aria-label="문서 종류"><a href="index.html" aria-current="page">보도자료</a><a href="report.html">보고서</a></nav><h1>보도자료 HWPX 만들기</h1><div class="sub">원본 자료를 보도자료로 정리하고, 핵심 내용을 한눈에 보는 인포그래픽을 부록으로 붙입니다.</div></header>
 <main>
 <section class="card">
 <h2>1. 원본 자료</h2>
